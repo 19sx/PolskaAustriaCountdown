@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #ececec, #8e44ad);
+            animation: backgroundAnimation 10s infinite alternate;
+        }
+
+        @keyframes backgroundAnimation {
+            0% { background: linear-gradient(135deg, #9f62b8, #8e44ad); }
+            100% { background: linear-gradient(135deg, #8e44ad, #9b59b6); }
+        }
+
+        .timer {
+            text-align: center;
+            color: #d4af37; 
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .timer h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #b8860b, #ffd700, #daa520);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .timer p {
+            font-size: 2rem;
+            margin: 0;
+            background: linear-gradient(90deg, #b8860b, #ffd700, #daa520);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .message {
+            margin-top: 1rem;
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, #b8860b, #ffd700, #daa520);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="timer">
+        <h1>Countdown Timer</h1>
+        <p id="countdown">Loading...</p>
+        <p class="message" id="hourMessage"></p>
+    </div>
+
+    <script>
+        const targetDate = new Date('2025-01-03T00:00:00');
+
+        const hourlyMessages = [
+            "Du bist das beste was mir jemals passiert ist❤️",
+            "Alles was ich jemals wollte und sogar mehr, same Freakiness, same Ambitions, same Humor, same Brainrot and same kind of Love  .              . . -> You are Perfect",
+            "Jeden Abend danke ich Gott für eine Beauty an Frau, Danke 🙏",
+            "Highlight of the Day? Mit dir Zeit verbracht zu haben, sogar wenn es nur mit dir schreiben war",
+            "Wenn du einen Guten Tag hast ist mein Tag automatisch auch Perfekt 🫡",
+            "Sending Love... ❤️❤️❤️ Unconditional Love sent! ",
+            "Das L in Leona steht für Lieben? Ich liebe dieses Mädchen nicht nur, ich will mit diesem Mädchen alles erreichen. Sie ist mein Greatest Achievement, Mein ein und Alles, Mein Brainrot zu Tiktok und mein Inner peace ",
+            "What Cooking Good Looking? ",
+            "Wenn ich dich sehe wird die GANZE Welt unwichtig weil meine Eyes sind only for YOUUUUUUUUUUUUUUUUUUUUUUUUUUU",
+            "Was du gerne Glazing nennst ist nicht gut genug für dich, ich bräuchte eine Seite die dir Sekündlich Komplimente macht🤯",
+            "A+L, forever",
+            "A picture of you a day keeps the doctor away (I have heard 😤)",
+            "Mehr sprüche kommen noch aber zu eepy da 4:40 right now😪",
+            "Du bist der Grund, warum ich morgens mit einem Lächeln aufwache. 😘",
+            "Ich Liebe dich so sehr, du lässt mich alle meine Probleme vergessen. Ein Actual Lifesaver 💞",
+            "Ich habe es nicht Oft gesagt aber du weißt nicht wieviel das Geschenk mir bedeutet Ich sehe den Effort und Schätze ihn so Unglaublich sehr 💘",
+            "Noch nie habe ich in Erwähnung bezogen für jemanden eine Seite zu machen, und dann kamst du🤗",
+            "Ich Liebe es so sehr über unseren Ersten Eye Contact zu reden, du weißt nicht wie sehr die Welt sich für mich verändert hat",
+            "Ich Liebe ALLES an dir auch deine Flaws und Insecurities, sie machen dich so besonders (und tbh ich tue jetzt schon/werde jede einzelne Insecurity lieben)🙏",
+            "Mache dir niemals sorgen um irgendwas, ich bin bereit für dich zu Kämpfen selbst wenn es David gegen Golliath ist 🙂‍↕️",
+        ];
+
+        function updateCountdown() {
+            const now = new Date();
+            const difference = targetDate.getTime() - now.getTime();
+
+            if (difference <= 0) {
+                document.getElementById('countdown').innerText = 'Time is up!';
+                document.getElementById('hourMessage').innerText = '';
+                clearInterval(interval);
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerText =
+                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            const remainingHours = Math.floor(difference / (1000 * 60 * 60));
+            const currentHourIndex = (hourlyMessages.length - remainingHours % hourlyMessages.length) % hourlyMessages.length;
+            document.getElementById('hourMessage').innerText = hourlyMessages[currentHourIndex];
+        }
+
+        const interval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
